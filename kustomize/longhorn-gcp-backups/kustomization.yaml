@@ -1,0 +1,9 @@
+namespace: longhorn-system
+secretGenerator:
+  - name: longhorn-gcp-backups
+    literals:
+      - AWS_ACCESS_KEY_ID={{ .bucketAccessKeyId }}
+      - AWS_ENDPOINTS=https://storage.googleapis.com
+      - AWS_SECRET_ACCESS_KEY={{ .bucketSecretAccessKey }}
+    options:
+      disableNameSuffixHash: true

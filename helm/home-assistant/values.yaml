@@ -1,0 +1,15 @@
+ingress:
+  hostname: home-assistant.sjoedin.se
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+
+config:
+  postgresql:
+    hostname: home-assistant-postgresql
+    username: "${POSTGRES_USERNAME}" # Will be replaced by envsubst in init container by postgres operator values
+    password: "${POSTGRES_PASSWORD}" # Will be replaced by envsubst in init container by postgres operator values
+    database: home_assistant
+
+  google:
+    projectId: home-assistant-61673
+    serviceAccount: "{{ .homeAssistantServiceAccount }}"

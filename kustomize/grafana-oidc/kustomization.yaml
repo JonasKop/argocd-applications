@@ -1,0 +1,8 @@
+namespace: monitoring
+secretGenerator:
+  - name: auth-generic-oauth-secret
+    literals:
+      - client_id={{ .grafanaClientId }}
+      - client_secret={{ .grafanaClientSecret }}
+    options:
+      disableNameSuffixHash: true

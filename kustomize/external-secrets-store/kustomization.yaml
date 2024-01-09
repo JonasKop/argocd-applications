@@ -1,0 +1,17 @@
+namespace: external-secrets
+resources:
+  - cluster-secret-store.yaml
+patches:
+  - patch: |
+      - op: replace
+        path: "/spec/provider/gcpsm/projectID"
+        value: 'home-394919'
+    target:
+      kind: ClusterSecretStore
+
+secretGenerator:
+  - name: gcp-service-account
+    literals:
+      - secret-access-credentials={{ .externalSecretsServiceAccount }}
+    options:
+      disableNameSuffixHash: true

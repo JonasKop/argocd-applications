@@ -1,0 +1,21 @@
+nodeName: worker-39fadcc6
+
+config:
+  permitJoin: false
+  mqtt:
+    base_topic: zigbee2mqtt
+    server: mqtt://mosquitto.mosquitto.svc.cluster.local
+    username: "{{ .mosquittoUsername }}"
+    password: "{{ .mosquittoPassword }}"
+  devices:
+    '0x680ae2fffe418ddc':
+      friendly_name: Vardagsrumslampa 1
+    '0x680ae2fffef9e0e7':
+      friendly_name: Vardagsrumslampa 2
+    '0x680ae2fffe40f104':
+      friendly_name: Allrumslampan
+    '0x680ae2fffeacb0db':
+      friendly_name: Hallampan
+    '0x000b57fffeba1954':
+      friendly_name: Vitrinskåpen
+  networkKey: "{{- .zigbeeNetworkKey | nindent 4 }}"

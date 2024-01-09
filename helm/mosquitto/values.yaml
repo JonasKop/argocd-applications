@@ -1,0 +1,4 @@
+config:
+  mosquitto:
+    username: "{{ .mosquittoUsername }}"
+    password: "{{ .mosquittoPassword }}"
