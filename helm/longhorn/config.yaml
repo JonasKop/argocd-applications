@@ -1,0 +1,4 @@
+repository: https://charts.longhorn.io
+chart: longhorn
+version: 1.5.3
+namespace: longhorn-system

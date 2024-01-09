@@ -1,0 +1,4 @@
+repository: https://charts.external-secrets.io
+chart: external-secrets
+version: 0.9.9
+namespace: external-secrets

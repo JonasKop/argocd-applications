@@ -1,0 +1,10 @@
+namespace: argocd
+commonLabels:
+  app.kubernetes.io/part-of: argocd
+secretGenerator:
+  - name: argocd-oidc
+    literals:
+      - clientId={{ .argocdClientId }}
+      - clientSecret={{ .argocdClientSecret }}
+    options:
+      disableNameSuffixHash: true
