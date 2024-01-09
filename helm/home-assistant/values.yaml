@@ -4,12 +4,54 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 
 config:
-  postgresql:
-    hostname: home-assistant-postgresql
-    username: "${POSTGRES_USERNAME}" # Will be replaced by envsubst in init container by postgres operator values
-    password: "${POSTGRES_PASSWORD}" # Will be replaced by envsubst in init container by postgres operator values
-    database: home_assistant
+  persistentFiles:
+    .cloud: /config/.cloud
+    .storage: /config/.storage
+  configFiles:
+    configuration.yaml: |
+      # Configure a default setup of Home Assistant (frontend, api, etc)
+      default_config:
 
-  google:
-    projectId: home-assistant-61673
-    serviceAccount: "{{ .homeAssistantServiceAccount }}"
+      # Text to speech
+      tts:
+        - platform: google_translate
+
+      # Database backend
+      recorder:
+        db_url: !secret db_url
+
+      # Ingress forwarding settings
+      http:
+        use_x_forwarded_for: true
+        trusted_proxies:
+          - 192.168.1.0/24
+          - 10.42.0.0/16
+
+      # Google assistant configuration
+      google_assistant:
+        project_id: home-assistant-61673
+        service_account: !include serviceAccount.json
+        report_state: true
+        expose_by_default: false
+        entity_config:
+          light.vitrinskapen:
+            expose: true
+          light.allrumslampan:
+            expose: true
+          light.hallampan:
+            expose: true
+          light.vardagsrumslampa_1:
+            expose: true
+          light.vardagsrumslampa_2:
+            expose: true
+          light.fonsterlamporna:
+            expose: true
+          vacuum.bobby:
+            expose: true
+            aliases:
+              - dammsugaren
+  secretFiles:
+    secrets.yaml: |
+      # Database url
+      db_url: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@home-assistant-postgresql/home_assistant
+    serviceAccount.json: "{{ .homeAssistantServiceAccount }}"
