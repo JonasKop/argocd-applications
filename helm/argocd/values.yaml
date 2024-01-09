@@ -2,12 +2,8 @@ configs:
   credentialTemplates:
     github-jonas-home:
       url: https://github.com/jonaskop-home
-      username: "{{ .githubUsername }}"
-      password: "{{ .githubPassword }}"
     github-jonas:
       url: https://github.com/jonaskop
-      username: "{{ .githubUsername }}"
-      password: "{{ .githubPassword }}"
   secret:
     extra:
       oidc.google.clientId: "{{ .argocdClientId }}"
