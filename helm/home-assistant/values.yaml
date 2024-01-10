@@ -5,8 +5,9 @@ ingress:
 
 config:
   persistentFiles:
-    .cloud: /config/.cloud
-    .storage: /config/.storage
+    custom_integrations: /config/custom_integrations
+    custom_components: /config/custom_components
+
   configFiles:
     configuration.yaml: |
       # Configure a default setup of Home Assistant (frontend, api, etc)
