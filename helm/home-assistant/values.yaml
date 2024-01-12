@@ -34,22 +34,19 @@ config:
         report_state: true
         expose_by_default: false
         entity_config:
-          light.vitrinskapen:
-            expose: true
           light.allrumslampan:
-            expose: true
-          light.hallampan:
-            expose: true
-          light.vardagsrumslampa_1:
-            expose: true
-          light.vardagsrumslampa_2:
             expose: true
           light.fonsterlamporna:
             expose: true
-          vacuum.bobby:
+          light.hallampan:
             expose: true
-            aliases:
-              - dammsugaren
+          light.kokslampan:
+            expose: true
+          light.sovrumsfonsterlampan:
+            expose: true
+          light.vitrinskapen:
+            expose: true
+
   secretFiles:
     secrets.yaml: |
       # Database url
