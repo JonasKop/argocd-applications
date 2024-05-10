@@ -1,4 +1,0 @@
-repository: ghcr.io/jonaskop/helm
-chart: home-assistant
-version: '*'
-namespace: home-assistant
