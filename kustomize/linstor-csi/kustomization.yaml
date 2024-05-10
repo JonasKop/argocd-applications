@@ -1,0 +1,26 @@
+namespace: kube-system
+resources:
+  - https://raw.githubusercontent.com/piraeusdatastore/linstor-csi/master/examples/k8s/deploy/linstor-csi-1.19.yaml
+  - storageclass.yaml
+
+patches:
+  - patch: |-
+      - op: replace
+        path: "/spec/template/spec/containers/4/env/2"
+        value:
+          name: LINSTOR_IP
+          value: "http://klopp:3370"
+    target:
+      kind: StatefulSet
+      namespace: kube-system
+      name: linstor-csi-controller
+  - patch: |-
+      - op: replace
+        path: "/spec/template/spec/containers/1/env/2"
+        value:
+          name: LINSTOR_IP
+          value: "http://klopp:3370"
+    target:
+      kind: DaemonSet
+      namespace: kube-system
+      name: linstor-csi-node
