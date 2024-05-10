@@ -1,3 +1,16 @@
 namespace: argocd
 resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/release-2.11/manifests/install.yaml
+
+patches:
+  - target:
+      kind: ConfigMap
+      name: argocd-cm
+    patch: |
+      - op: add
+        path: /data
+        value: {}
+      - op: add
+        path: /data/kustomize.buildOptions
+        # Allow kustomize to use helm and run local KRM exec functions
+        value: "--enable-helm --enable-exec --enable-alpha-plugins"
