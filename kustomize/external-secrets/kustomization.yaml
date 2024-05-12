@@ -3,7 +3,6 @@ resources:
   - "cluster-secret-store.yaml"
 helmCharts:
   - name: external-secrets
-    includeCRDs: true
     valuesInline:
       installCRDs: true
     releaseName: external-secrets
