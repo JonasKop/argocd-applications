@@ -1,2 +1,11 @@
+namespace: cert-manager
 resources:
   - https://github.com/cert-manager/cert-manager/releases/download/v1.14.5/cert-manager.yaml
+  - cluster-issuers.yaml
+patches:
+  - patch: |-
+      - op: replace
+        path: "/spec/acme/email"
+        value: 'jonas.k.sjodin@gmail.com'
+    target:
+      kind: ClusterIssuer
