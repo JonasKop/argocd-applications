@@ -1,6 +1,7 @@
-namespace: ingress-nginx
+
 helmCharts:
   - name: ingress-nginx
+    namespace: ingress-nginx
     valuesInline:
       controller:
         replicaCount: 2

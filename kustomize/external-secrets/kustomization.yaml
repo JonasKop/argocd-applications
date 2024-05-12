@@ -1,10 +1,8 @@
-namespace: external-secrets
 resources:
   - "cluster-secret-store.yaml"
 helmCharts:
   - name: external-secrets
-    valuesInline:
-      installCRDs: true
+    namespace: external-secrets
     releaseName: external-secrets
     version: 0.9.17
     repo: https://charts.external-secrets.io
