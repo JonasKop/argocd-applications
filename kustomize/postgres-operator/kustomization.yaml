@@ -1,7 +1,8 @@
+resources:
+  - "namespace.yaml"
 helmCharts:
   - name: postgres-operator
     namespace: postgres-operator
     releaseName: postgres-operator
     version: 1.11.0
     repo: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
-
