@@ -1,0 +1,28 @@
+configs:
+  cm:
+    kustomize.buildOptions: --enable-helm --enable-exec --enable-alpha-plugins
+
+repoServer:
+  # extraArgs: ["--loglevel", "debug"]
+  initContainers:
+    - name: external-secrets-transformer-installer
+      image: alpine:3.18.3
+      imagePullPolicy: IfNotPresent
+      command:
+        - sh
+        - -c
+        - |
+          # Download external-secrets-transformer
+          wget https://github.com/JonasKop/external-secrets-transformer/releases/download/0.4.0/external-secrets-transformer-linux-amd64
+          install -m 0755 external-secrets-transformer-linux-amd64 /custom-tools/external-secrets-transformer
+
+      volumeMounts:
+        - mountPath: /custom-tools
+          name: custom-tools
+  volumes:
+    - name: custom-tools
+      emptyDir: {}
+  volumeMounts:
+    - mountPath: /usr/local/bin/external-secrets-transformer
+      subPath: external-secrets-transformer
+      name: custom-tools
