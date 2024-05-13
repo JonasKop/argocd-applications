@@ -7,4 +7,4 @@ storeName=$(echo "$resourceList" | sed -n -e 's/storeName: //p')
 export STORE_NAME="$storeName"
 export STORE_KIND="$storeKind"
 
-echo "$resourceList" | (/Users/jonaskop/Code/external-secrets-transformer/external-secrets-transformer-macos-amd64)
+echo "$resourceList" | external-secrets-transformer
