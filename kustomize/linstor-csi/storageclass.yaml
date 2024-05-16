@@ -10,3 +10,4 @@ parameters:
   linstor.csi.linbit.com/placementCount: "1"
   linstor.csi.linbit.com/storagePool: pve-storage
   linstor.csi.linbit.com/resourceGroup: pve-rg
+  csi.storage.k8s.io/fstype: ext4
