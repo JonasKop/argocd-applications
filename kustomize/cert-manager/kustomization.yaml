@@ -1,7 +1,18 @@
 namespace: cert-manager
 resources:
-  - https://github.com/cert-manager/cert-manager/releases/download/v1.14.5/cert-manager.yaml
+  # - https://github.com/cert-manager/cert-manager/releases/download/v1.14.5/cert-manager.yaml
   - cluster-issuers.yaml
+  - "namespace.yaml"
+helmCharts:
+  - name: cert-manager
+    namespace: cert-manager
+    releaseName: cert-manager
+    valuesInline:
+      installCRDs: true
+    version: v1.14.5
+    repo: https://charts.jetstack.io
+    includeCRDs: true
+
 patches:
   - patch: |-
       - op: replace
