@@ -35,17 +35,17 @@ config:
         report_state: true
         expose_by_default: false
         entity_config:
-          light.allrumslampan:
+          light.allrumslampa:
             expose: true
-          light.fonsterlamporna:
+          light.fonsterlampor:
             expose: true
-          light.hallampan:
+          light.hallampa:
             expose: true
-          light.kokslampan:
+          light.kokslampa:
             expose: true
-          light.sovrumsfonsterlampan:
+          light.sovrumslampa:
             expose: true
-          light.vitrinskapen:
+          light.vitrinskap:
             expose: true
 
   secretFiles:
