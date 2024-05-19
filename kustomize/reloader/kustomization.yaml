@@ -1,3 +1,8 @@
 resources:
   - "namespace.yaml"
-  - "https://github.com/stakater/Reloader/deployments/kubernetes?ref=v1.0.95"
+helmCharts:
+  - name: reloader
+    namespace: reloader
+    releaseName: reloader
+    repo: https://stakater.github.io/stakater-charts
+    version: 1.0.97
