@@ -1,5 +1,6 @@
 namespace: home-assistant
 resources:
+  - "secret.yaml"
   - "namespace.yaml"
   - "postgres.yaml"
 helmCharts:
