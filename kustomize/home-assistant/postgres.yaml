@@ -6,7 +6,7 @@ metadata:
 spec:
   teamId: "acid"
   volume:
-    size: 1Gi
+    size: 10Gi
   numberOfInstances: 1
   users:
     home_assistant: # database owner
@@ -16,7 +16,3 @@ spec:
     home_assistant: home_assistant # dbname: owner
   postgresql:
     version: "15"
-  clone:
-    cluster: home-assistant-postgresql
-    # uid:
-    timestamp: "2024-05-20T15:50:00+00:00" 

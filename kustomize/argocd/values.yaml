@@ -13,7 +13,7 @@ repoServer:
         - -c
         - |
           # Download external-secrets-transformer
-          wget https://github.com/JonasKop/external-secrets-transformer/releases/download/0.4.0/external-secrets-transformer-linux-amd64
+          wget https://github.com/JonasKop/external-secrets-transformer/releases/download/0.4.1/external-secrets-transformer-linux-amd64
           install -m 0755 external-secrets-transformer-linux-amd64 /custom-tools/external-secrets-transformer
 
       volumeMounts:
