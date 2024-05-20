@@ -4,6 +4,7 @@ metadata:
   name: home-assistant-postgresql
   namespace: home-assistant
 spec:
+  enableLogicalBackup: true
   teamId: "acid"
   volume:
     size: 1Gi

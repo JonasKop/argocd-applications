@@ -1,0 +1,4 @@
+configKubernetes:
+  cluster_labels:
+    velero.io/exclude-from-backup: "true"
+  inherited_labels: [velero.io/exclude-from-backup]

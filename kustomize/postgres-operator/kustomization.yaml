@@ -5,5 +5,6 @@ helmCharts:
     namespace: postgres-operator
     releaseName: postgres-operator
     version: 1.11.0
+    valuesFile: values.yaml
     repo: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
     includeCRDs: true
