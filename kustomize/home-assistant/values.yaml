@@ -3,6 +3,13 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-staging
 
+initEnv:
+  - name: POSTGRES_URL
+    valueFrom:
+      secretKeyRef:
+        name: home-assistant-postgres-app
+        key: uri
+
 config:
   persistentFiles:
     .cloud: /config/.cloud
@@ -51,5 +58,5 @@ config:
   secretFiles:
     secrets.yaml: |
       # Database url
-      db_url: postgresql://${POSTGRES_USERNAME}:${POSTGRES_PASSWORD}@home-assistant-postgresql/home_assistant
+      db_url: ${POSTGRES_URL}
     serviceAccount.json: "{{ .HOME_ASSISTANT_GCP_SERVICE_ACCOUNT_JSON }}"

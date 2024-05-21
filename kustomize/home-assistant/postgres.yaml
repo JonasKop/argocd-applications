@@ -1,18 +1,13 @@
-apiVersion: "acid.zalan.do/v1"
-kind: postgresql
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
 metadata:
-  name: home-assistant-postgresql
-  namespace: home-assistant
+  name: home-assistant-postgres
 spec:
-  teamId: "acid"
-  volume:
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.3
+  instances: 1
+  storage:
     size: 10Gi
-  numberOfInstances: 1
-  users:
-    home_assistant: # database owner
-      - superuser
-      - createdb
-  databases:
-    home_assistant: home_assistant # dbname: owner
-  postgresql:
-    version: "15"
+  bootstrap:
+    initdb:
+      database: home_assistant
+      owner: home_assistant
