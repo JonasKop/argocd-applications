@@ -1,0 +1,10 @@
+namespace: zigbee2mqtt
+resources:
+  - "namespace.yaml"
+helmCharts:
+  - name: zigbee2mqtt
+    namespace: zigbee2mqtt
+    releaseName: zigbee2mqtt
+    repo: oci://ghcr.io/jonaskop/helm
+transformers:
+  - "ESTransformer.yaml"
