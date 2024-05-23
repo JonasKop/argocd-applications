@@ -1,7 +1,7 @@
 ingress:
   hostname: home-assistant.sjoedin.se
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 
 initEnv:
   - name: POSTGRES_URL
