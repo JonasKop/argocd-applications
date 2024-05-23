@@ -5,7 +5,7 @@ metadata:
   name: external-secrets-transformer
   annotations:
     config.kubernetes.io/function: |
-      exec: 
+      exec:
         path: ../../kustomize-plugins/external-secrets-transformer.sh
 spec:
   storeKind: ClusterSecretStore
