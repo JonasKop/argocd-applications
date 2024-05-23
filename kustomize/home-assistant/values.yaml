@@ -20,6 +20,8 @@ config:
       # Configure a default setup of Home Assistant (frontend, api, etc)
       default_config:
 
+      automation: !include automations.yaml
+
       # Text to speech
       tts:
         - platform: google_translate
@@ -86,6 +88,36 @@ config:
               - Sovrumsrullgardinerna
               - Rullgardinerna
               - Gardinerna
+    automations.yaml: |
+      - alias: Blinds_Battery_Notify
+        description: ""
+        trigger:
+        - platform: time
+          at: "02:00:00"
+        condition: []
+        action:
+          - service: tuiss2ha.get_battery_status
+            target:
+              entity_id:
+                - binary_sensor.dorrullgardin
+                - binary_sensor.fonsterrullgardin
+            data: {}
+          - if:
+              - condition: state
+                entity_id: binary_sensor.dorrullgardin
+                state: "on"
+            then:
+              - service: notify.mobile_app_jonas_telefon
+                data:
+                  message: Hallway Blind battery is low
+          - if:
+              - condition: state
+                entity_id: binary_sensor.fonsterrullgardin
+                state: "on"
+            then:
+              - service: notify.mobile_app_jonas_telefon
+                data:
+                  message: Study battery is low`
 
   secretFiles:
     secrets.yaml: |
