@@ -14,6 +14,7 @@ config:
   persistentFiles:
     .cloud: /config/.cloud
     .storage: /config/.storage
+    custom_components: /config/custom_components
   configFiles:
     configuration.yaml: |
       # Configure a default setup of Home Assistant (frontend, api, etc)
@@ -44,16 +45,47 @@ config:
         entity_config:
           light.allrumslampa:
             expose: true
+            aliases:
+              - Allrumslamporna
           light.fonsterlampor:
             expose: true
+            aliases:
+              - Fönsterlamporna
           light.hallampa:
             expose: true
+            aliases:
+              - Hallampan
           light.kokslampa:
             expose: true
+            aliases:
+              - Kökslampan
           light.sovrumslampa:
             expose: true
+            aliases:
+              - Sovrumslampan
           light.vitrinskap:
             expose: true
+            aliases:
+              - Vitrinskåpen
+              - Vitrinskåpet
+          cover.dorrullgardin:
+            expose: true
+            aliases:
+              - Dörrullgardinen
+              - Balkongrullgardin
+              - Balkongrullgardinen
+              - Balkongdörrsrullgardin
+              - Balkongdörrsrullgardinen
+          cover.fonsterrullgardin:
+            expose: true
+            aliases:
+              - Fönsterrullgardinen
+          cover.rullgardiner:
+            expose: true
+            aliases:
+              - Sovrumsrullgardinerna
+              - Rullgardinerna
+              - Gardinerna
 
   secretFiles:
     secrets.yaml: |
