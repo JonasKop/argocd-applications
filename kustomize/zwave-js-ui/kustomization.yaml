@@ -41,14 +41,18 @@ patches:
           persistentVolumeClaim:
             claimName: zwave-js-ui
 
-      ##########
-      # LIMITS #
-      ##########
-
+      ########
+      # MISC #
+      ########
       # Use memory limits=requests
       - op: replace
         path: "/spec/template/spec/containers/0/resources/limits/memory"
         value: 400Mi
+      # Set strategy
+      - op: add
+        path: "/spec/strategy"
+        value:
+          type: Recreate
 
       ####################
       # SECURITY CONTEXT #

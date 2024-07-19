@@ -3,6 +3,11 @@ resources:
   - "namespace.yaml"
   - "pvc.yaml"
   - "statefulset.yaml"
+
+images:
+  - name: koenkk/zigbee2mqtt
+    newTag: 1.39.0
+
 secretGenerator:
   - name: zigbee2mqtt
     literals:
