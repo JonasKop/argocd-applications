@@ -1,10 +1,15 @@
 namespace: zigbee2mqtt
 resources:
   - "namespace.yaml"
-helmCharts:
+  - "pvc.yaml"
+  - "statefulset.yaml"
+secretGenerator:
   - name: zigbee2mqtt
-    namespace: zigbee2mqtt
-    releaseName: zigbee2mqtt
-    repo: oci://ghcr.io/jonaskop/helm
+    literals:
+      - MQTT_USERNAME={{ .MOSQUITTO_USERNAME }}
+      - MQTT_PASSWORD={{ .MOSQUITTO_PASSWORD }}
+      - USB_DEVICES_URL={{ .USB_DEVICES_URL }}
+    options:
+      disableNameSuffixHash: true
 transformers:
   - "ESTransformer.yaml"

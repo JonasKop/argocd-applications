@@ -1,4 +1,3 @@
-# $MYAPP/cmGenerator.yaml
 apiVersion: sjoedin.se
 kind: ExternalSecretsTransformer
 metadata:

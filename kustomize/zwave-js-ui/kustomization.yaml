@@ -1,0 +1,69 @@
+resources:
+  - "https://raw.githubusercontent.com/zwave-js/zwave-js-ui/v9.16.0/kubernetes/deployment.yaml"
+  - "https://raw.githubusercontent.com/zwave-js/zwave-js-ui/v9.16.0/kubernetes/namespace.yaml"
+  - "https://raw.githubusercontent.com/zwave-js/zwave-js-ui/v9.16.0/kubernetes/service.yaml"
+  - "pvc.yaml"
+namespace: zwave
+
+images:
+  - name: zwavejs/zwave-js-ui
+    newTag: 9.16.0
+
+patches:
+  - patch: |-
+      ###########
+      # CLEANUP #
+      ###########
+
+      # Should be added again in the future, when it works
+      - op: remove
+        path: "/spec/template/spec/containers/0/livenessProbe"
+      # Can run on all nodes
+      - op: remove
+        path: "/spec/template/spec/nodeSelector"
+      # Remove current volumes
+      - op: remove
+        path: "/spec/template/spec/containers/0/volumeMounts/0"
+
+      ###########
+      # VOLUMES #
+      ###########
+
+      # Remove all preset volumes
+      - op: replace
+        path: "/spec/template/spec/volumes"
+        value: []
+      # Add pvc for persistent storage
+      - op: add
+        path: "/spec/template/spec/volumes/-"
+        value:
+          name: data
+          persistentVolumeClaim:
+            claimName: zwave-js-ui
+
+      ##########
+      # LIMITS #
+      ##########
+
+      # Use memory limits=requests
+      - op: replace
+        path: "/spec/template/spec/containers/0/resources/limits/memory"
+        value: 400Mi
+
+      ####################
+      # SECURITY CONTEXT #
+      ####################
+
+      # Run as user 1000
+      - op: add
+        path: "/spec/template/spec/containers/0/securityContext"
+        value:
+          runAsGroup: 1000
+          runAsUser: 1000
+      # Mount storage as user 1000
+      - op: add
+        path: "/spec/template/spec/securityContext"
+        value:
+          fsGroup: 1000
+    target:
+      kind: Deployment
