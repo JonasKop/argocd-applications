@@ -4,11 +4,5 @@ resources:
   - "namespace.yaml"
   - "postgres.yaml"
   - "manifests.yaml"
-# helmCharts:
-#   - name: home-assistant
-#     namespace: home-assistant
-#     valuesFile: values.yaml
-#     releaseName: home-assistant
-#     repo: oci://ghcr.io/jonaskop/helm
 transformers:
   - "ESTransformer.yaml"
