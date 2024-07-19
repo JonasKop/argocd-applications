@@ -2,7 +2,7 @@ namespace: zigbee2mqtt
 resources:
   - "namespace.yaml"
   - "pvc.yaml"
-  - "statefulset.yaml"
+  - "deployment.yaml"
 
 images:
   - name: koenkk/zigbee2mqtt
