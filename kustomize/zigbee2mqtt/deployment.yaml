@@ -8,7 +8,8 @@ metadata:
     app.kubernetes.io/name: zigbee2mqtt
 spec:
   replicas: 1
-  strategy: Recreate
+  strategy: 
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: zigbee2mqtt
