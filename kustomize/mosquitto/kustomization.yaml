@@ -1,16 +1,14 @@
 namespace: mosquitto
 resources:
   - "namespace.yaml"
-  - "manifest.yaml"
-# helmCharts:
-#   - name: mosquitto
-#     namespace: mosquitto
-#     valuesInline:
-#       config:
-#         mosquitto:
-#           username: "{{ .MOSQUITTO_USERNAME }}"
-#           password: "{{ .MOSQUITTO_PASSWORD }}"
-#     releaseName: mosquitto
-#     repo: oci://ghcr.io/jonaskop/helm
+  - "deployment.yaml"
+  - "configmap.yaml"
+  - "secret.yaml"
+  - "service.yaml"
+
+images:
+  - name: eclipse-mosquitto
+    newTag: 2.0.18
+
 transformers:
   - "ESTransformer.yaml"
