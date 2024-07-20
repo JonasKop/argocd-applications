@@ -3,12 +3,19 @@ resources:
   - "namespace.yaml"
   - "deployment.yaml"
   - "configmap.yaml"
-  - "secret.yaml"
   - "service.yaml"
 
 images:
   - name: eclipse-mosquitto
     newTag: 2.0.18
+
+secretGenerator:
+  - name: mosquitto
+    literals:
+      - MOSQUITTO_PASSWORD={{ .MOSQUITTO_PASSWORD }}
+      - MOSQUITTO_USERNAME={{ .MOSQUITTO_USERNAME }}
+    options:
+      disableNameSuffixHash: true
 
 transformers:
   - "ESTransformer.yaml"
