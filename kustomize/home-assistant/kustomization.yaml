@@ -15,7 +15,7 @@ transformers:
   - "ESTransformer.yaml"
 
 secretGenerator:
-  - name: mosquitto
+  - name: home-assistant
     files:
       - secrets.yaml
       - serviceAccount.json
