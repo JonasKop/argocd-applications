@@ -1,6 +1,5 @@
 namespace: home-assistant
 resources:
-  - "secret.yaml"
   - "namespace.yaml"
   - "postgres.yaml"
   - "ingress.yaml"
@@ -15,3 +14,10 @@ images:
 transformers:
   - "ESTransformer.yaml"
 
+secretGenerator:
+  - name: mosquitto
+    files:
+      - secrets.yaml
+      - serviceAccount.json
+    options:
+      disableNameSuffixHash: true

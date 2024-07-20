@@ -10,10 +10,7 @@ images:
 
 secretGenerator:
   - name: zigbee2mqtt
-    literals:
-      - MQTT_USERNAME={{ .MOSQUITTO_USERNAME }}
-      - MQTT_PASSWORD={{ .MOSQUITTO_PASSWORD }}
-      - USB_DEVICES_URL={{ .USB_DEVICES_URL }}
+    envs: [".env"]
     options:
       disableNameSuffixHash: true
 transformers:
