@@ -1,5 +1,4 @@
 resources:
-  - "cluster-secret-store.yaml"
   - "namespace.yaml"
 helmCharts:
   - name: external-secrets
