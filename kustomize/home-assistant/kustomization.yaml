@@ -3,6 +3,15 @@ resources:
   - "secret.yaml"
   - "namespace.yaml"
   - "postgres.yaml"
-  - "manifests.yaml"
+  - "ingress.yaml"
+  - "deployment.yaml"
+  - "service.yaml"
+  - "pvc.yaml"
+
+images:
+  - name: homeassistant/home-assistant
+    newTag: "2024.7.3"
+
 transformers:
   - "ESTransformer.yaml"
+

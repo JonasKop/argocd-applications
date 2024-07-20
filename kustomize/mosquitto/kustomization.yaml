@@ -1,15 +1,16 @@
 namespace: mosquitto
 resources:
   - "namespace.yaml"
-helmCharts:
-  - name: mosquitto
-    namespace: mosquitto
-    valuesInline:
-      config:
-        mosquitto:
-          username: "{{ .MOSQUITTO_USERNAME }}"
-          password: "{{ .MOSQUITTO_PASSWORD }}"
-    releaseName: mosquitto
-    repo: oci://ghcr.io/jonaskop/helm
+  - "manifest.yaml"
+# helmCharts:
+#   - name: mosquitto
+#     namespace: mosquitto
+#     valuesInline:
+#       config:
+#         mosquitto:
+#           username: "{{ .MOSQUITTO_USERNAME }}"
+#           password: "{{ .MOSQUITTO_PASSWORD }}"
+#     releaseName: mosquitto
+#     repo: oci://ghcr.io/jonaskop/helm
 transformers:
   - "ESTransformer.yaml"
