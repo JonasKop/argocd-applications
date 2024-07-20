@@ -1,18 +1,10 @@
 namespace: home-assistant
 resources:
-  - "namespace.yaml"
-  - "postgres.yaml"
-  - "ingress.yaml"
-  - "deployment.yaml"
-  - "service.yaml"
-  - "pvc.yaml"
+  - "../../base/home-assistant"
 
 images:
   - name: homeassistant/home-assistant
     newTag: "2024.7.3"
-
-transformers:
-  - "ESTransformer.yaml"
 
 secretGenerator:
   - name: home-assistant
@@ -21,3 +13,6 @@ secretGenerator:
       - serviceAccount.json
     options:
       disableNameSuffixHash: true
+
+transformers:
+  - "ESTransformer.yaml"
