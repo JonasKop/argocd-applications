@@ -1,9 +1,7 @@
-namespace: mosquitto
 resources:
-  - "namespace.yaml"
-  - "deployment.yaml"
-  - "configmap.yaml"
-  - "service.yaml"
+  - "../../base/mosquitto"
+
+namespace: mosquitto
 
 images:
   - name: eclipse-mosquitto
