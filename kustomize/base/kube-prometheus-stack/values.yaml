@@ -1,0 +1,49 @@
+grafana:
+  ingress:
+    ingressClassName: nginx
+    # annotations:
+    #   cert-manager.io/cluster-issuer: letsencrypt-prod
+    enabled: true
+    hosts:
+      - "grafana.sjoedin.se"
+    # tls:
+    #   - hosts:
+    #       - "grafana.sjoedin.se"
+    #     secretName: grafana-tls
+  # adminPassword: "{{ .grafanaAdminPassword }}"
+  adminPassword: "some-password"
+  # grafana.ini:
+  #   auth:
+  #     disable_login_form: "true"
+  #   auth.google:
+  #     enabled: true
+  #     auto_login: false
+  #     scopes: openid email profile
+  #     auth_url: https://accounts.google.com/o/oauth2/v2/auth
+  #     token_url: https://oauth2.googleapis.com/token
+  #     api_url: https://openidconnect.googleapis.com/v1/userinfo
+  #     use_pkce: true
+  #     client_id: "$__file{/etc/secrets/auth_generic_oauth/client_id}"
+  #     client_secret: "$__file{/etc/secrets/auth_generic_oauth/client_secret}"
+  #     role_attribute_path: 'Admin'
+  #     # signout_redirect_url: https://grafana.home.jonassjodin.com/login
+  #   server:
+  #     root_url: https://grafana.sjoedin.se
+
+  # extraSecretMounts:
+  #   - name: auth-generic-oauth-secret-mount
+  #     secretName: auth-generic-oauth-secret
+  #     defaultMode: 0440
+  #     mountPath: /etc/secrets/auth_generic_oauth
+  #     readOnly: true
+
+prometheus:
+  prometheusSpec:
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          # accessModes:
+          #   - ReadWriteOnce
+          resources:
+            requests:
+              storage: 20Gi

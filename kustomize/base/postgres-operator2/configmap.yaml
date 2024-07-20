@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-env
+  namespace: postgres-operator
+data:
+  # AWS_S3_FORCE_PATH_STYLE: "true"
+  AWS_REGION: garage
+  AWS_ENDPOINT: http://garage:3900
+  USE_WALG_BACKUP: "true"
+  WALG_DISABLE_S3_SSE: "true"
+  CLONE_AWS_REGION: garage
+  CLONE_AWS_ENDPOINT: http://garage:3900
+  CLONE_USE_WALG_BACKUP: "true"
+  CLONE_WALG_DISABLE_S3_SSE: "true"
+  # WALE_S3_PREFIX: postgres
+  # AWS_REGION: garage
+  # WALE_S3_ENDPOINT: http+path://garage:3900

@@ -1,0 +1,13 @@
+resources:
+  - "configmap.yaml"
+  - "namespace.yaml"
+helmCharts:
+  - name: postgres-operator
+    namespace: postgres-operator
+    releaseName: postgres-operator
+    version: 1.11.0
+    valuesFile: values.yaml
+    repo: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+    includeCRDs: true
+transformers:
+  - "ESTransformer.yaml"

@@ -1,0 +1,23 @@
+namespace: cnpg-system
+resources:
+  # - "configmap.yaml"
+  - "namespace.yaml"
+helmCharts:
+  - name: cloudnative-pg
+    namespace: cnpg-system
+    releaseName: cnpg
+    version: 0.21.2
+    valuesFile: values.yaml
+    repo: https://cloudnative-pg.github.io/charts
+    includeCRDs: true
+# transformers:
+#   - "ESTransformer.yaml"
+
+
+
+
+# helm repo add cnpg https://cloudnative-pg.github.io/charts
+# helm upgrade --install cnpg \
+#   --namespace cnpg-system \
+#   --create-namespace \
+#   cnpg/cloudnative-pg
