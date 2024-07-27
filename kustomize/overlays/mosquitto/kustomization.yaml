@@ -1,0 +1,17 @@
+resources:
+  - "../../base/mosquitto"
+
+namespace: mosquitto
+
+images:
+  - name: eclipse-mosquitto
+    newTag: 2.0.18
+
+secretGenerator:
+  - name: mosquitto
+    envs: [".env"]
+    options:
+      disableNameSuffixHash: true
+
+transformers:
+  - "ESTransformer.yaml"

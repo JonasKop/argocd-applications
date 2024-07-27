@@ -1,0 +1,12 @@
+# $MYAPP/cmGenerator.yaml
+apiVersion: sjoedin.se
+kind: ExternalSecretsTransformer
+metadata:
+  name: external-secrets-transformer
+  annotations:
+    config.kubernetes.io/function: |
+      exec:
+        path: ../../../kustomize-plugins/external-secrets-transformer.sh
+spec:
+  storeKind: ClusterSecretStore
+  storeName: doppler
