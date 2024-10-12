@@ -27,8 +27,8 @@ rules:
     resources: ["pods"]
     verbs: ["list"]
   - apiGroups: ["apps"]
-    resources: ["deployments"]
-    verbs: ["get"]
+    resources: ["deployments", "daemonsets"]
+    verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -83,6 +83,10 @@ spec:
 
               wget https://dl.k8s.io/release/$(wget -qO- https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl -O /tmp/bin/kubectl
               chmod +x /tmp/bin/kubectl
+
+              until kubectl rollout status deployment -n piraeus-datastore linstor-controller | grep -m 1 "successfully rolled out"; do sleep 5; done
+              until kubectl rollout status deployment -n piraeus-datastore linstor-csi-controller | grep -m 1 "successfully rolled out"; do sleep 5; done
+              until kubectl rollout status daemonset -n piraeus-datastore linstor-csi-node | grep -m 1 "successfully rolled out"; do sleep 5; done
 
               workerNodes=$(kubectl get nodes --no-headers -l 'node-role.kubernetes.io/control-plane!=' -o custom-columns=NAME:.metadata.name)
               for workerNode in $workerNodes; do
