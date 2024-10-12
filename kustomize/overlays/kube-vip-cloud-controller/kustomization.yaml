@@ -1,0 +1,2 @@
+resources:
+  - "../../base/kube-vip-cloud-controller"
