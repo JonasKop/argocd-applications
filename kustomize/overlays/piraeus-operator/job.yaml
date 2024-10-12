@@ -1,0 +1,99 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: linstor-storage-pool
+  namespace: piraeus-datastore
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: linstor-storage-pool
+  namespace: piraeus-datastore
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: linstor-storage-pool
+  namespace: piraeus-datastore
+rules:
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["create"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["list"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: linstor-storage-pool
+subjects:
+  - kind: ServiceAccount
+    name: linstor-storage-pool
+    namespace: piraeus-datastore
+roleRef:
+  kind: ClusterRole
+  name: linstor-storage-pool
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: linstor-storage-pool
+  namespace: piraeus-datastore
+subjects:
+  - kind: ServiceAccount
+    name: linstor-storage-pool
+roleRef:
+  kind: Role
+  name: linstor-storage-pool
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: linstor-storage-pool
+  namespace: piraeus-datastore
+spec:
+  template:
+    spec:
+      serviceAccountName: linstor-storage-pool
+      containers:
+        - name: linstor-storage-pool-creator
+          image: alpine/git:2.45.2
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+          command:
+            - sh
+            - -c
+            - |
+              set -e
+              mkdir -p /tmp/bin
+              export PATH="$PATH:/tmp/bin"
+
+              wget https://dl.k8s.io/release/$(wget -qO- https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl -O /tmp/bin/kubectl
+              chmod +x /tmp/bin/kubectl
+
+              workerNodes=$(kubectl get nodes --no-headers -l 'node-role.kubernetes.io/control-plane!=' -o custom-columns=NAME:.metadata.name)
+              for workerNode in $workerNodes; do
+                linstorNodeNotExists=$(kubectl exec -n piraeus-datastore deploy/linstor-controller -it -- \
+                  linstor storage-pool list | grep linstor_pool | grep $workerNode | awk '{print $4}')
+                if [ -z "$linstorNodeNotExists" ]; then
+                  kubectl exec -n piraeus-datastore deploy/linstor-controller -it -- \
+                    linstor physical-storage create-device-pool --pool-name linstor_pool lvmthin $workerNode /dev/vdb --storage-pool linstor_pool
+                else
+                  echo "There already exists a storage-pool called linstor_pool on node $workerNode"
+                fi
+              done
+      restartPolicy: Never
+  backoffLimit: 4
