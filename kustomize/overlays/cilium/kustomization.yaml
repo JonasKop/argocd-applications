@@ -52,3 +52,7 @@ helmCharts:
       externalIPs:
         enabled: true
       devices: eth0
+
+      ingressController:
+        enabled: true
+        loadbalancerMode: shared
