@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.4/manifests/install.yaml
+  - ../../initial-argocd
   - ingress.yaml
 
 patches:
