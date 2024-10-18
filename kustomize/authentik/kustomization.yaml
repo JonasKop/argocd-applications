@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: authentik
+
+resources:
+  - "namespace.yaml"
+  - "postgres.yaml"
+
+helmCharts:
+  - name: authentik
+    namespace: authentik
+    valuesFile: values.yaml
+    releaseName: authentik
+    version: 2024.8.3
+    repo: https://charts.goauthentik.io
+
+transformers:
+  - "ESTransformer.yaml"

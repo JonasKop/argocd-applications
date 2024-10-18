@@ -10,7 +10,7 @@ spec:
         repoURL: https://github.com/JonasKop/argocd-applications.git
         revision: HEAD
         directories:
-          - path: kustomize/overlays/*
+          - path: kustomize/*
   template:
     metadata:
       name: "{{.path.basename}}"
@@ -23,9 +23,9 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{.path.basename}}"
-      syncPolicy:
-        automated:
-          prune: false
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
+      # syncPolicy:
+      #   automated:
+      #     prune: false
+      #     selfHeal: true
+      #   syncOptions:
+      #     - CreateNamespace=true
