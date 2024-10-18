@@ -19,11 +19,3 @@ data:
       name: authentik
       type: oidc
       id: authentik
-  kustomize.buildOptions: --enable-helm --enable-exec --enable-alpha-plugins
-  resource.exclusions: |
-    - apiGroups:
-        - cilium.io
-      kinds:
-        - CiliumIdentity
-      clusters:
-        - "*"
