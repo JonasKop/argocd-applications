@@ -42,7 +42,7 @@ authentik:
 server:
   ingress:
     annotations:
-      cert-manager.io/cluster-issuer: "letsencrypt-staging"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
     enabled: true
     # Specify kubernetes ingress controller class name
     ingressClassName: nginx
