@@ -10,7 +10,7 @@ spec:
         repoURL: https://github.com/JonasKop/argocd-applications.git
         revision: HEAD
         directories:
-          - path: kustomize/*
+          - path: kustomize123/*
   template:
     metadata:
       name: "{{.path.basename}}"
