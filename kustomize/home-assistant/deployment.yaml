@@ -75,6 +75,10 @@ spec:
             runAsGroup: 1000
             runAsUser: 1000
           volumeMounts:
+            - mountPath: /.cache
+              name: tmp-cache
+            - mountPath: /.config
+              name: tmp-config
             - mountPath: /config
               name: config
             - mountPath: /config/secrets.yaml
@@ -86,6 +90,10 @@ spec:
       securityContext:
         fsGroup: 1000
       volumes:
+        - emptyDir: {}
+          name: tmp-cache
+        - emptyDir: {}
+          name: tmp-config
         - name: config
           persistentVolumeClaim:
             claimName: home-assistant
