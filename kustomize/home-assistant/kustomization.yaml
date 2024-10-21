@@ -12,8 +12,8 @@ resources:
 
 images:
   - name: homeassistant/home-assistant
-    newTag: "2024.10"
-
+    # newTag: "2024.10"
+    newTag: "2024.7.3"
 secretGenerator:
   - name: home-assistant
     files:
