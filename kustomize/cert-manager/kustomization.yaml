@@ -16,6 +16,7 @@ helmCharts:
       installCRDs: true
     version: v1.14.5
     repo: https://charts.jetstack.io
+    includeCRDs: true
     valuesInline:
       dns01RecursiveNameservers: "1.1.1.1:53"
       dns01RecursiveNameserversOnly: true
