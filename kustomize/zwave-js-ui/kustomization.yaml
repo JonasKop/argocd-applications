@@ -7,6 +7,8 @@ resources:
   - "https://raw.githubusercontent.com/zwave-js/zwave-js-ui/v9.16.0/kubernetes/namespace.yaml"
   - "https://raw.githubusercontent.com/zwave-js/zwave-js-ui/v9.16.0/kubernetes/service.yaml"
   - "pvc.yaml"
+  - "service.yaml"
+  - "ingress.yaml"
 
 images:
   - name: zwavejs/zwave-js-ui
