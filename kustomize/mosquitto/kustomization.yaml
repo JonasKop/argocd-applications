@@ -9,9 +9,9 @@ resources:
   - "secret.yaml"
   - "service.yaml"
 
+components:
+  - ../../components/external-secrets-transformer
+
 images:
   - name: eclipse-mosquitto
     newTag: 2.0.20
-
-transformers:
-  - "ESTransformer.yaml"

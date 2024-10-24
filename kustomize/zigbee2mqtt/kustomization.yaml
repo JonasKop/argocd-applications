@@ -8,9 +8,9 @@ resources:
   - "deployment.yaml"
   - "secret.yaml"
 
+components:
+  - ../../components/external-secrets-transformer
+
 images:
   - name: koenkk/zigbee2mqtt
     newTag: 1.39.0
-
-transformers:
-  - "ESTransformer.yaml"

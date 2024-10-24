@@ -6,6 +6,9 @@ resources:
   - ../../initial-argocd
   - ingress.yaml
 
+components:
+  - ../../components/external-secrets-transformer
+
 patches:
   - path: argocd-cm-patch.yaml
     target:
@@ -23,6 +26,3 @@ patches:
     target:
       kind: Secret
       name: argocd-secret
-
-transformers:
-  - "ESTransformer.yaml"

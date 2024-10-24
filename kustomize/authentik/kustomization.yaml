@@ -6,6 +6,9 @@ resources:
   - "namespace.yaml"
   - "postgres.yaml"
 
+components:
+  - ../../components/external-secrets-transformer
+
 helmCharts:
   - name: authentik
     namespace: authentik
@@ -13,6 +16,3 @@ helmCharts:
     releaseName: authentik
     version: 2024.8.3
     repo: https://charts.goauthentik.io
-
-transformers:
-  - "ESTransformer.yaml"

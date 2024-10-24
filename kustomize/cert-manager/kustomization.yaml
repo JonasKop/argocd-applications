@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - cluster-issuers.yaml
   - namespace.yaml
+  - secret.yaml
 
 components:
   - ../../components/external-secrets-transformer
@@ -14,12 +15,10 @@ helmCharts:
     releaseName: cert-manager
     valuesInline:
       installCRDs: true
-    version: v1.14.5
-    repo: https://charts.jetstack.io
-    includeCRDs: true
-    valuesInline:
       dns01RecursiveNameservers: "1.1.1.1:53"
       dns01RecursiveNameserversOnly: true
+    version: v1.14.5
+    repo: https://charts.jetstack.io
 
 patches:
   - patch: |-
