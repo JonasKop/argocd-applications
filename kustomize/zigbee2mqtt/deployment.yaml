@@ -67,10 +67,6 @@ spec:
                 adapter: deconz
               EOF
               fi
-          ports:
-            - containerPort: 8080
-              name: http
-              protocol: TCP
           resources:
             requests:
               memory: "64Mi"
@@ -89,6 +85,10 @@ spec:
             runAsUser: 1000
             runAsGroup: 1000
           image: koenkk/zigbee2mqtt:latest
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
           resources:
             requests:
               memory: "200Mi"
