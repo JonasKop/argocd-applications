@@ -5,6 +5,9 @@ resources:
   - cluster-issuers.yaml
   - namespace.yaml
 
+components:
+  - ../../components/external-secrets-transformer
+
 helmCharts:
   - name: cert-manager
     namespace: cert-manager
@@ -13,6 +16,9 @@ helmCharts:
       installCRDs: true
     version: v1.14.5
     repo: https://charts.jetstack.io
+    valuesInline:
+      dns01RecursiveNameservers: "1.1.1.1:53"
+      dns01RecursiveNameserversOnly: true
 
 patches:
   - patch: |-
