@@ -7,6 +7,8 @@ resources:
   - "pvc.yaml"
   - "deployment.yaml"
   - "secret.yaml"
+  - "service.yaml"
+  - "ingress.yaml"
 
 components:
   - ../../components/external-secrets-transformer

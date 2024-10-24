@@ -67,6 +67,10 @@ spec:
                 adapter: deconz
               EOF
               fi
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
           resources:
             requests:
               memory: "64Mi"
