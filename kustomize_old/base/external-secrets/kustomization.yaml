@@ -1,9 +1,0 @@
-resources:
-  - "namespace.yaml"
-helmCharts:
-  - name: external-secrets
-    namespace: external-secrets
-    releaseName: external-secrets
-    version: 0.9.17
-    repo: https://charts.external-secrets.io
-    includeCRDs: true

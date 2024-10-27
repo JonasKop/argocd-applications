@@ -1,3 +1,0 @@
-resources:
-  - "../../base/external-secrets"
-  - "cluster-secret-store.yaml"

@@ -1,5 +1,0 @@
-resources:
-  - "../../base/argocd"
-
-transformers:
-  - "ESTransformer.yaml"

@@ -1,7 +1,0 @@
-resources:
-  - "namespace.yaml"
-  - "postgres.yaml"
-  - "ingress.yaml"
-  - "deployment.yaml"
-  - "service.yaml"
-  - "pvc.yaml"

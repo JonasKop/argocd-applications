@@ -1,5 +1,0 @@
-resources:
-  - "../../base/authentik"
-
-transformers:
-  - "ESTransformer.yaml"

@@ -1,7 +1,0 @@
-resources:
-  - "../../base/zwave-js-ui"
-namespace: zwave
-
-images:
-  - name: zwavejs/zwave-js-ui
-    newTag: 9.16.0
