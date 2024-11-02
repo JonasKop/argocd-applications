@@ -15,8 +15,10 @@ helmCharts:
     repo: https://kubernetes.github.io/ingress-nginx
     valuesInline:
       controller:
+        ingressClass: public-nginx
         ingressClassResource:
           name: public-nginx
+          controllerValue: k8s.io/public-ingress-nginx
         hostPort:
           enabled: true
         service:
