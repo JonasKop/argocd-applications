@@ -5,6 +5,7 @@ metadata:
   namespace: velero
 spec:
   schedule: 0 4 * * *
+  useOwnerReferencesInBackup: true
   template:
     excludedNamespaces:
       - kube-system
