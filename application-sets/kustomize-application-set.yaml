@@ -1,7 +1,40 @@
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: kustomize
+#   namespace: argocd
+# spec:
+#   goTemplate: true
+#   generators:
+#     - git:
+#         repoURL: https://github.com/JonasKop/argocd-applications.git
+#         revision: HEAD
+#         directories:
+#           - path: kustomize/*
+#   template:
+#     metadata:
+#       name: "{{.path.basename}}"
+#       annotations:
+#         argocd.argoproj.io/compare-options: "ServerSideDiff=true"
+#     spec:
+#       project: default
+#       source:
+#         repoURL: https://github.com/JonasKop/argocd-applications.git
+#         targetRevision: HEAD
+#         path: "{{.path.path}}"
+#       destination:
+#         server: https://kubernetes.default.svc
+#       syncPolicy:
+#         # automated:
+#         #   prune: false
+#         #   selfHeal: true
+#         syncOptions:
+#           - CreateNamespace=true
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: kustomize
+  name: kustomize-test
   namespace: argocd
 spec:
   goTemplate: true
@@ -10,10 +43,10 @@ spec:
         repoURL: https://github.com/JonasKop/argocd-applications.git
         revision: HEAD
         directories:
-          - path: kustomize/*
+          - path: kustomize-test-new-layout/*
   template:
     metadata:
-      name: "{{.path.basename}}"
+      name: "blabla-{{.path.basename}}"
       annotations:
         argocd.argoproj.io/compare-options: "ServerSideDiff=true"
     spec:
@@ -30,3 +63,9 @@ spec:
         #   selfHeal: true
         syncOptions:
           - CreateNamespace=true
+      ignoreDifferences:
+        - group: ""
+          kind: ConfigMap
+          name: test-configmap
+          jsonPointers:
+            - /data/tjosan
