@@ -55,8 +55,7 @@ for svc in $services; do
     else
       origGitUrl=$(echo "$gitUrl" | cut -d'/' -f1-5)
     fi
-
-    latestVersion=$(git ls-remote "$origGitUrl" | awk '{print $2}' | grep '^refs/tags' | sed 's/refs\/tags\///' | sed '/\^{}$/d' | grep -Eo '\bv?[0-9]+\.[0-9]+\.[0-9]+\b' | sort -V -r | head -n 1)
+    latestVersion=$(git ls-remote "$origGitUrl" | awk '{print $2}' | grep '^refs/tags' | sed 's/refs\/tags\///' | sed '/\^{}$/d' | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | sort -V -r | head -n 1)
     newGitUrl=$(echo "$gitUrl" | sed 's/v\?[0-9]*\.[0-9]*\.[0-9]*/'"$latestVersion"'/')
     i=$(yq ".resources.[] | select(. == \"$gitUrl\") | path | .[-1]" "$svc/kustomization.yaml")
     yq -i ".resources[$i] = \"$newGitUrl\"" "$svc/kustomization.yaml"
