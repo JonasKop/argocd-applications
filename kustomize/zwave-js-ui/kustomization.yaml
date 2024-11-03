@@ -1,19 +1,16 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: zwave
-
 resources:
-  - "https://raw.githubusercontent.com/zwave-js/zwave-js-ui/v9.16.0/kubernetes/deployment.yaml"
-  - "https://raw.githubusercontent.com/zwave-js/zwave-js-ui/v9.16.0/kubernetes/namespace.yaml"
-  - "https://raw.githubusercontent.com/zwave-js/zwave-js-ui/v9.16.0/kubernetes/service.yaml"
+  - "https://raw.githubusercontent.com/zwave-js/zwave-js-ui/v9.26.0/kubernetes/deployment.yaml"
+  - "https://raw.githubusercontent.com/zwave-js/zwave-js-ui/v9.26.0/kubernetes/namespace.yaml"
+  - "https://raw.githubusercontent.com/zwave-js/zwave-js-ui/v9.26.0/kubernetes/service.yaml"
   - "pvc.yaml"
   - "service.yaml"
   - "ingress.yaml"
-
 images:
   - name: zwavejs/zwave-js-ui
-    newTag: 9.16.0
-
+    newTag: 9.26.0
 patches:
   - patch: |-
       ###########
