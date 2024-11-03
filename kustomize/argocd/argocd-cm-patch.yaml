@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
 data:
-  # admin.enabled: "false"
+  admin.enabled: "false"
   url: https://argocd.sjoedin.se
   dex.config: |
     connectors:
