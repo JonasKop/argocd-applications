@@ -88,7 +88,7 @@ spec:
               until kubectl rollout status deployment -n piraeus-datastore linstor-csi-controller | grep -m 1 "successfully rolled out"; do sleep 5; done
               until kubectl rollout status daemonset -n piraeus-datastore linstor-csi-node | grep -m 1 "successfully rolled out"; do sleep 5; done
 
-              workerNodes=$(kubectl get nodes --no-headers -l 'node-role.kubernetes.io/control-plane!=' -o custom-columns=NAME:.metadata.name)
+              workerNodes=$(kubectl get nodes --no-headers -l 'node-role.kubernetes.io/control-plane!=' -o custom-columns=NAME:.metadata.name | grep -v hcloud)
               for workerNode in $workerNodes; do
                 linstorNodeNotExists=$(kubectl exec -n piraeus-datastore deploy/linstor-controller -it -- \
                   linstor storage-pool list | grep linstor_pool | grep $workerNode | awk '{print $4}')

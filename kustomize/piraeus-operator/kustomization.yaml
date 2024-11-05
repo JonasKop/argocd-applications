@@ -6,4 +6,3 @@ resources:
   - linstor-satellite-configuration.yaml
   - job.yaml
   - storage-class.yaml
-  - volume-snapshot-class.yaml

@@ -10,6 +10,7 @@ resources:
   - "pvc.yaml"
 components:
   - ../../components/external-secrets-transformer
+  - ../../components/postgres
 images:
   - name: homeassistant/home-assistant
     newTag: "2024.10.4"

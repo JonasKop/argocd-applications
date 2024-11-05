@@ -2,14 +2,22 @@ apiVersion: velero.io/v1
 kind: Schedule
 metadata:
   name: cluster-backups
-  namespace: velero
 spec:
   schedule: 0 4 * * *
   useOwnerReferencesInBackup: true
   template:
+    snapshotMoveData: true
     excludedNamespaces:
       - kube-system
       - kube-public
       - kube-node-lease
       - velero
       - default
+      - piraeus-datastore
+      - snapshot-controller
+      - metallb-system
+      - kubelet-serving-cert-approver
+      - cnpg-system
+    excludedResources:
+      - backups.postgresql.cnpg.io
+      - scheduledbackups.postgresql.cnpg.io

@@ -1,0 +1,8 @@
+apiVersion: velero.io/v1
+kind: VolumeSnapshotLocation
+metadata:
+  name: default
+spec:
+  config:
+    region: eu-central-003
+  provider: aws

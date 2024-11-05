@@ -1,0 +1,36 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: clusterName
+  labels:
+    velero.io/exclude-from-backup: "true"
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.3
+  instances: 1
+  inheritedMetadata:
+    labels:
+      velero.io/exclude-from-backup: "true"
+  backup:
+    barmanObjectStore:
+      destinationPath: "s3://homelab-postgres-backups/backups"
+      endpointURL: https://s3.eu-central-003.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          name: postgres-backup-credentials
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: postgres-backup-credentials
+          key: ACCESS_SECRET_KEY
+
+  externalClusters:
+    - name: clusterName
+      barmanObjectStore:
+        destinationPath: "s3://homelab-postgres-backups/restores"
+        endpointURL: https://s3.eu-central-003.backblazeb2.com
+        s3Credentials:
+          accessKeyId:
+            name: postgres-backup-credentials
+            key: ACCESS_KEY_ID
+          secretAccessKey:
+            name: postgres-backup-credentials
+            key: ACCESS_SECRET_KEY

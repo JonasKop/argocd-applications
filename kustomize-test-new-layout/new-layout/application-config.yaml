@@ -1,0 +1,7 @@
+spec:
+  ignoreDifferences:
+    - group: ""
+      kind: ConfigMap
+      name: test-configmap
+      jsonPointers:
+        - /data/tjosan

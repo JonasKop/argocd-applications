@@ -6,6 +6,7 @@ resources:
   - "postgres.yaml"
 components:
   - ../../components/external-secrets-transformer
+  - ../../components/postgres
 helmCharts:
   - name: authentik
     namespace: authentik

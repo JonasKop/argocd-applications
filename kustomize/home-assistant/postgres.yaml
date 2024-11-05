@@ -3,11 +3,13 @@ kind: Cluster
 metadata:
   name: home-assistant-postgres
 spec:
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.3
-  instances: 1
   storage:
     size: 10Gi
   bootstrap:
-    initdb:
+    # initdb:
+    #   database: home_assistant
+    #   owner: home_assistant
+    recovery:
       database: home_assistant
       owner: home_assistant
+      source: home-assistant-postgres

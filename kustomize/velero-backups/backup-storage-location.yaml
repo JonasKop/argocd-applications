@@ -1,0 +1,14 @@
+apiVersion: velero.io/v1
+kind: BackupStorageLocation
+metadata:
+  name: default
+spec:
+  accessMode: ReadWrite
+  config:
+    checksumAlgorithm: ""
+    region: eu-central-003
+    s3Url: https://s3.eu-central-003.backblazeb2.com
+  default: true
+  objectStorage:
+    bucket: homelab-velero-backups
+  provider: aws

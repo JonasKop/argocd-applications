@@ -3,11 +3,13 @@ kind: Cluster
 metadata:
   name: authentik-postgres
 spec:
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.3
-  instances: 1
   storage:
-    size: 1Gi
+    size: 5Gi
   bootstrap:
-    initdb:
+    # initdb:
+    #   database: authentik
+    #   owner: authentik
+    recovery:
       database: authentik
       owner: authentik
+      source: authentik-postgres

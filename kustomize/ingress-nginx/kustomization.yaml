@@ -28,10 +28,14 @@ helmCharts:
         service:
           enabled: false
         tolerations:
-          - key: "hetzner"
+          - key: "hetznerNoSchedule"
             operator: "Equal"
             value: "true"
             effect: "NoSchedule"
+          - key: "hetznerNoExecute"
+            operator: "Equal"
+            value: "true"
+            effect: "NoExecute"
         nodeSelector:
           node-type: hetzner
         admissionWebhooks:
