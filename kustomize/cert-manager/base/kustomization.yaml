@@ -4,8 +4,6 @@ resources:
   - cluster-issuers.yaml
   - namespace.yaml
   - secret.yaml
-components:
-  - ../../components/external-secrets-transformer
 helmCharts:
   - name: cert-manager
     namespace: cert-manager

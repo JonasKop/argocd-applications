@@ -8,8 +8,6 @@ resources:
   - "secret.yaml"
   - "service.yaml"
   - "ingress.yaml"
-components:
-  - ../../components/external-secrets-transformer
 images:
   - name: koenkk/zigbee2mqtt
     newTag: 1.41.0

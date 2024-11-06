@@ -3,11 +3,8 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-  - ../../initial-argocd
+  - ../../../initial-argocd
   - ingress.yaml
-
-components:
-  - ../../components/external-secrets-transformer
 
 patches:
   - path: argocd-cm-patch.yaml
