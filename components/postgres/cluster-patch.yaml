@@ -14,6 +14,9 @@ spec:
     barmanObjectStore:
       destinationPath: "s3://homelab-postgres-backups/backups"
       endpointURL: https://s3.eu-central-003.backblazeb2.com
+      wal:
+        compression: gzip
+      retentionPolicy: "4d"
       s3Credentials:
         accessKeyId:
           name: postgres-backup-credentials

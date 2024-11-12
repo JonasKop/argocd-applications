@@ -29,9 +29,19 @@ spec:
             - |
               curl -k -L -s https://github.com/a8m/envsubst/releases/download/v1.4.2/envsubst-Linux-x86_64 -o /tmp/envsubst
               chmod +x /tmp/envsubst
+
               for secretFile in /secret-files/*; do
                 /tmp/envsubst < "$secretFile" > /secrets/$(basename "$secretFile")
               done
+
+              if [ ! -d "/setup/config" ]; then
+                mkdir /setup/config
+                mv /setup/* /setup/.* /setup/config ||:
+                cp -rf /etc/passwd /etc/group /home/ /setup/
+                mkdir -p /setup/home/home-assistant && chown 1000:1000 /setup/home/home-assistant
+                echo "home-assistant:x:1000:1000:Linux User,,,:/home/home-assistant:/bin/bash" >> /setup/passwd
+              fi
+
           env:
             - name: POSTGRES_URL
               valueFrom:
@@ -50,6 +60,8 @@ spec:
             runAsGroup: 1000
             runAsUser: 1000
           volumeMounts:
+            - mountPath: /setup
+              name: home-assistant
             - mountPath: /secrets
               name: secrets
             - mountPath: /secret-files/secrets.yaml
@@ -75,12 +87,18 @@ spec:
             runAsGroup: 1000
             runAsUser: 1000
           volumeMounts:
-            - mountPath: /.cache
-              name: tmp-cache
-            - mountPath: /.config
-              name: tmp-config
+            - mountPath: /etc/passwd
+              subPath: passwd
+              name: home-assistant
+            - mountPath: /etc/group
+              subPath: group
+              name: home-assistant
+            - mountPath: /home
+              subPath: home
+              name: home-assistant
             - mountPath: /config
-              name: config
+              subPath: config
+              name: home-assistant
             - mountPath: /config/secrets.yaml
               name: secrets
               subPath: secrets.yaml
@@ -90,11 +108,7 @@ spec:
       securityContext:
         fsGroup: 1000
       volumes:
-        - emptyDir: {}
-          name: tmp-cache
-        - emptyDir: {}
-          name: tmp-config
-        - name: config
+        - name: home-assistant
           persistentVolumeClaim:
             claimName: home-assistant
         - name: secret-files

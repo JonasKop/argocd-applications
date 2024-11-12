@@ -2,27 +2,27 @@
 
 services="./kustomize/* initial-argocd"
 for svc in $services; do
-  helmChartsLength=$(yq '.helmCharts | length' "$svc/kustomization.yaml")
+  helmChartsLength=$(yq '.helmCharts | length' "$svc/base/kustomization.yaml")
   ######################
   # Update helm charts #
   ######################
   for ((i = 0; i < "$helmChartsLength"; i++)); do
-    chartName=$(yq ".helmCharts[$i].name" "$svc/kustomization.yaml")
-    version=$(yq ".helmCharts[$i].version" "$svc/kustomization.yaml")
-    repo=$(yq ".helmCharts[$i].repo" "$svc/kustomization.yaml")
+    chartName=$(yq ".helmCharts[$i].name" "$svc/base/kustomization.yaml")
+    version=$(yq ".helmCharts[$i].version" "$svc/base/kustomization.yaml")
+    repo=$(yq ".helmCharts[$i].repo" "$svc/base/kustomization.yaml")
 
     helmCharts=$(curl -L -s "$repo/index.yaml")
     newVersion=$(echo "$helmCharts" | yq ".entries.\"$chartName\".[].version | select(. != \"*-beta*\") | select(. != \"*-alpha*\") | select(. != \"*-pre*\")" | sort -V -r | head -n 1)
-    yq -i ".helmCharts[$i].version = \"$newVersion\"" "$svc/kustomization.yaml"
+    yq -i ".helmCharts[$i].version = \"$newVersion\"" "$svc/base/kustomization.yaml"
 
   done
 
   #######################
   # Update docker image #
   #######################
-  imagesLength=$(yq '.images | length' "$svc/kustomization.yaml")
+  imagesLength=$(yq '.images | length' "$svc/base/kustomization.yaml")
   for ((i = 0; i < "$imagesLength"; i++)); do
-    imageName=$(yq ".images[$i].name" "$svc/kustomization.yaml")
+    imageName=$(yq ".images[$i].name" "$svc/base/kustomization.yaml")
 
     if [[ "$imageName" != *\/* ]]; then
       imageName="library/$imageName"
@@ -41,13 +41,13 @@ for svc in $services; do
       versions=$(echo "$tagNames" | grep -Eo '\b[0-9]+\.[0-9]+\.[0-9]+\b')
     fi
     latestVersion=$(echo "$versions" | sort -V -r | head -n 1)
-    yq -i ".images[$i].newTag = \"$latestVersion\"" "$svc/kustomization.yaml"
+    yq -i ".images[$i].newTag = \"$latestVersion\"" "$svc/base/kustomization.yaml"
   done
 
   ###################
   # Update git urls #
   ###################
-  gitUrls=$(yq '.resources.[] | select(. == "https*")' "$svc/kustomization.yaml")
+  gitUrls=$(yq '.resources.[] | select(. == "https*")' "$svc/base/kustomization.yaml")
   for gitUrl in $gitUrls; do
     if [[ $gitUrl == "https://raw.githubusercontent.com"* ]]; then
       githubrepo=$(echo "$gitUrl" | cut -d'/' -f4-5)
@@ -57,7 +57,7 @@ for svc in $services; do
     fi
     latestVersion=$(git ls-remote "$origGitUrl" | awk '{print $2}' | grep '^refs/tags' | sed 's/refs\/tags\///' | sed '/\^{}$/d' | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | sort -V -r | head -n 1)
     newGitUrl=$(echo "$gitUrl" | sed 's/v\?[0-9]*\.[0-9]*\.[0-9]*/'"$latestVersion"'/')
-    i=$(yq ".resources.[] | select(. == \"$gitUrl\") | path | .[-1]" "$svc/kustomization.yaml")
-    yq -i ".resources[$i] = \"$newGitUrl\"" "$svc/kustomization.yaml"
+    i=$(yq ".resources.[] | select(. == \"$gitUrl\") | path | .[-1]" "$svc/base/kustomization.yaml")
+    yq -i ".resources[$i] = \"$newGitUrl\"" "$svc/base/kustomization.yaml"
   done
 done
