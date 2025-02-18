@@ -1,0 +1,49 @@
+ingressController:
+  enabled: true
+  loadbalancerMode: shared
+  default: true
+  defaultSecretNamespace: cert-manager
+  defaultSecretName: sjoedin-se-wildcard-tls
+kubeProxyReplacement: true
+l2announcements:
+  enabled: true
+k8sClientRateLimit:
+  qps: 30
+  burst: 36
+ipam:
+  mode: kubernetes
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+securityContext:
+  capabilities:
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+k8sServicePort: 6443
+externalIPs:
+  enabled: true
+devices: eth+
+# # Can we remove this later?
+# envoyConfig:
+#   enabled: true
+#   secretsNamespace:
+#     create: false
+
+loadBalancer:
+  l7:
+    backend: envoy

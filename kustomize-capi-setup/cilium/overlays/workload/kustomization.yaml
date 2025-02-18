@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+  - ./l2announcement.yaml
+  - ./ippool.yaml
+
+helmCharts:
+  - name: cilium
+    namespace: kube-system
+    releaseName: cilium
+    version: 1.16.6
+    repo: https://helm.cilium.io
+    additionalValuesFiles:
+      - ../../base/values.yaml
+    valuesInline:
+      k8sServiceHost: 192.168.21.3
